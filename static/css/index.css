@@ -133,11 +133,11 @@ body {
 }
 
 .title.is-4 {
-  font-size: 0.7rem;  /* 根据需要调整大小 */
+  font-size: 0.1rem;  /* 根据需要调整大小 */
 }
 
 .custom-font-size p {
-  font-size: 0.7rem;  /* 根据需要调整字体大小 */
+  font-size: 0.1rem;  /* 根据需要调整字体大小 */
 }
 
 audio {
