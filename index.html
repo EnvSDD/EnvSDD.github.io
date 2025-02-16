@@ -705,7 +705,7 @@
           <a href="https://info.flagcounter.com/OGAh"><img src="https://s01.flagcounter.com/count2/OGAh/bg_FFFFFF/txt_000000/border_CCCCCC/columns_8/maxflags_12/viewers_0/labels_0/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
           
           <!-- 显示更新时间 -->
-          <p>Last updated: {{ site.time | date: "%B %d, %Y" }}</p>
+          <p id="last-updated">Last updated: </p>
 
         </div>
       </div>
@@ -713,7 +713,17 @@
   </div>
   
   </footer>
+  <script>
+  // 获取当前日期
+  var currentDate = new Date();
+  var options = { year: 'numeric', month: 'long', day: 'numeric' };
 
+  // 格式化日期
+  var formattedDate = currentDate.toLocaleDateString('en-US', options);
+
+  // 将格式化的日期插入到页面中的 <p> 元素
+  document.getElementById('last-updated').textContent = 'Last updated: ' + formattedDate;
+</script>
 <!-- Statcounter tracking code -->
   
 <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
