@@ -145,4 +145,9 @@ audio {
   width: 100%;       /* 确保音频控件宽度适应父元素 */
 }
 
+.columns {
+  display: flex;
+  flex-wrap: wrap; /* 使内容在需要时换行 */
+}
+
 
