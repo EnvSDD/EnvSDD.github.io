@@ -27,10 +27,6 @@ body {
   font-family: 'Google Sans', sans-serif;
 }
 
-.title.is-4 {
-  font-size: 0.5rem;  /* 根据需要调整大小 */
-}
-
 .publication-title {
 }
 
@@ -136,5 +132,8 @@ body {
   font-size: smaller;
 }
 
+.title.is-4 {
+  font-size: 0.5rem;  /* 根据需要调整大小 */
+}
 
 
