@@ -136,8 +136,12 @@ body {
   font-size: 0.7rem;  /* 根据需要调整大小 */
 }
 
+.custom-font-size p {
+  font-size: 0.7rem;  /* 根据需要调整字体大小 */
+}
+
 audio {
-  max-width: 50px;  /* 设置音频控件的最大宽度，可以根据需要调整 */
+  max-width: 100px;  /* 设置音频控件的最大宽度，可以根据需要调整 */
   width: 100%;       /* 确保音频控件宽度适应父元素 */
 }
 
