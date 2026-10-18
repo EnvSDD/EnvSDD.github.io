@@ -177,6 +177,15 @@ table.lb tr:not(.base) + tr.base td{border-top:1px dashed var(--rule)}
 table.lb caption{caption-side:bottom;text-align:left;font-size:12.5px;color:var(--muted);padding-top:8px;white-space:normal}
 .more{margin-top:14px;font-weight:600;font-size:15px}
 
+/* video + bibtex */
+.film{max-width:960px}
+.film video{width:100%;display:block;aspect-ratio:16/9;border-radius:18px;background:#06080d;box-shadow:0 24px 60px rgba(27,38,64,.22);border:1px solid var(--rule)}
+.bib-title{font-size:15px;margin:22px 0 8px;color:var(--ink-2)}
+.bib{position:relative}
+pre{margin:0;font-variant-ligatures:none;background:#141B2D;color:#E6EAF2;border-radius:12px;padding:18px 20px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.65}
+.copy{position:absolute;top:10px;right:10px;font-size:12.5px;font-weight:600;color:#E6EAF2;background:rgba(20,27,45,.85);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:5px 10px;cursor:pointer}
+.copy:hover{background:rgba(255,255,255,.18)}
+
 footer{border-top:1px solid var(--rule);padding:30px 0 44px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center}
 footer p{margin:0}
@@ -395,15 +404,51 @@ footer p{margin:0}
   </div>
 </section>
 
+<!-- Video: add static/video/envsdd.mp4 + poster.jpg, then remove "hidden" here and on #hero-video -->
 <section id="video" hidden>
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">05</span><h2>EnvSDD in 45 seconds</h2></div>
+    <div class="film">
+      <video controls preload="none" playsinline data-poster="static/video/poster.jpg">
+        <source data-src="static/video/envsdd.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
 </section>
 
 <section id="bibtex" class="soft">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">06</span><h2>BibTeX</h2></div>
+    <p class="lede">If you use EnvSDD, please cite the benchmark paper. If you use the challenge data or compare against challenge systems, please also cite the corresponding overview paper.</p>
+    <h3 class="bib-title">EnvSDD · Interspeech 2025</h3>
+    <div class="bib"><button class="copy" type="button">Copy</button><pre>@inproceedings{yin2025envsdd,
+  title     = {{EnvSDD}: Benchmarking Environmental Sound Deepfake Detection},
+  author    = {Yin, Han and Xiao, Yang and Das, Rohan Kumar and Bai, Jisheng and Liu, Haohe and Wang, Wenwu and Plumbley, Mark D.},
+  booktitle = {Interspeech 2025},
+  pages     = {201--205},
+  year      = {2025},
+  doi       = {10.21437/Interspeech.2025-1143}
+}</pre></div>
+    <h3 class="bib-title">ESDD 1 challenge overview · Interspeech 2026</h3>
+    <div class="bib"><button class="copy" type="button">Copy</button><pre>@misc{yin2026esdd1,
+  title         = {The First Environmental Sound Deepfake Detection Challenge: Benchmarking Robustness, Evaluation, and Insights},
+  author        = {Han Yin and Yang Xiao and Rohan Kumar Das and Jisheng Bai and Ting Dang},
+  year          = {2026},
+  eprint        = {2603.04865},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.SD},
+  url           = {https://arxiv.org/abs/2603.04865}
+}</pre></div>
+    <h3 class="bib-title">ESDD 2 challenge overview · ICME 2026 workshop</h3>
+    <div class="bib"><button class="copy" type="button">Copy</button><pre>@misc{zhang2026esdd2,
+  title         = {Overview of {ESDD2}: Environment-Aware Speech and Sound Deepfake Detection Challenge},
+  author        = {Xueping Zhang and Han Yin and Yang Xiao and Lin Zhang and Ting Dang and Rohan Kumar Das and Ming Li},
+  year          = {2026},
+  eprint        = {2606.10791},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.SD},
+  url           = {https://arxiv.org/abs/2606.10791}
+}</pre></div>
   </div>
 </section>
 
@@ -655,6 +700,34 @@ document.querySelectorAll('.seg').forEach(seg => {
       document.getElementById(o.dataset.show).hidden = !on;
     });
   }));
+});
+
+/* Video slot: media is only requested once the section is un-hidden. */
+(function activateVideo() {
+  const sec = document.getElementById('video');
+  if (sec.hidden) return;
+  const v = sec.querySelector('video');
+  v.poster = v.dataset.poster;
+  v.querySelectorAll('source').forEach(s => { s.src = s.dataset.src; });
+  v.load();
+})();
+
+/* BibTeX copy buttons */
+document.querySelectorAll('.bib .copy').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const text = btn.parentElement.querySelector('pre').textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = 'Copied';
+    } catch {
+      const range = document.createRange();
+      range.selectNodeContents(btn.parentElement.querySelector('pre'));
+      getSelection().removeAllRanges();
+      getSelection().addRange(range);
+      btn.textContent = 'Press ⌘/Ctrl+C';
+    }
+    setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+  });
 });
 
 window.__envsdd = {newRound};
