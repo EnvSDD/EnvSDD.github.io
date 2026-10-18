@@ -105,7 +105,7 @@ figcaption b{color:var(--ink)}
 .card .tag{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);display:block;margin-bottom:4px}
 .four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}
 .pill{display:inline-block;font-size:11.5px;font-weight:700;border-radius:999px;padding:1px 8px;margin:6px 6px 0 0}
-.pill.seen{color:#13866F;background:#DDF5EE} .pill.unseen{color:#B42318;background:#FDE4E1}
+.pill.seen{color:#0E6B58;background:#DDF5EE} .pill.unseen{color:#B42318;background:#FDE4E1}
 
 /* audio players */
 .player{display:grid;grid-template-columns:36px minmax(96px,150px) minmax(0,1fr) 40px;align-items:center;gap:12px;background:#fff;border:1px solid var(--rule);border-radius:10px;padding:8px 12px 8px 8px}
@@ -124,7 +124,7 @@ figcaption b{color:var(--ink)}
 
 .player.fake{border-color:color-mix(in srgb,var(--fake) 55%,#fff);background:color-mix(in srgb,var(--fake) 6%,#fff)}
 .player.fake .fill{background:var(--fake)}
-.player .name small.tta{color:#2F6BB8} .player .name small.ata{color:#6E4FC0} .player .name small.real{color:#13866F}
+.player .name small.tta{color:#2F6BB8} .player .name small.ata{color:#6E4FC0} .player .name small.real{color:#0E6B58}
 
 /* quiz */
 .quiz{max-width:820px;padding:24px 26px 26px}
@@ -314,7 +314,7 @@ footer p{margin:0}
       <p>We also propose a detector built on a pre-trained audio foundation model (BEATs + AASIST). On EnvSDD it outperforms state-of-the-art systems from the speech and singing domains.</p>
     </div>
     <figure style="margin-top:26px">
-      <img src="static/images/overview_1.png" width="2400" height="706" loading="lazy" alt="EnvSDD construction pipeline: real clips from six datasets (UrbanSound8K, DCASE 2023 Task 7, TAU UAS 2019, TUT SED 2016, TUT SED 2017, Clotho). TTA branch: metadata is rewritten into captions by an LLM and fed to text-to-audio models. ATA branch: a real clip's acoustic representation is fed to audio-to-audio models.">
+      <img src="static/images/overview_1.png" width="2400" height="706" loading="lazy" alt="EnvSDD construction pipeline: real clips from six datasets (UrbanSound8K, DCASE 2023 Task 7, TAU UAS 2019, TUT SED 2016, TUT SED 2017, Clotho). TTA branch: clip metadata is turned into captions (LLM-written for polyphonic sets) and fed to text-to-audio models. ATA branch: a real clip's acoustic representation is fed to audio-to-audio models.">
       <figcaption><b>How EnvSDD is built.</b> Real clips from six datasets (45.25 h) are turned into fakes two ways: captions written from their metadata drive text-to-audio models, and the real audio itself drives audio-to-audio models.</figcaption>
     </figure>
     <div class="four" role="list" aria-label="Test conditions">
@@ -527,7 +527,7 @@ function makePlayer(src, label, sub) {
     time.textContent = fmtTime(audio.currentTime);
     if (!audio.paused) raf = requestAnimationFrame(paint);
   };
-  btn.addEventListener('click', () => { audio.paused ? audio.play() : audio.pause(); });
+  btn.addEventListener('click', () => { audio.paused ? audio.play().catch(() => {}) : audio.pause(); });
   audio.addEventListener('play', () => {
     btn.innerHTML = ICON_PAUSE; btn.setAttribute('aria-label', `Pause ${label}`);
     cancelAnimationFrame(raf); raf = requestAnimationFrame(paint);
@@ -548,9 +548,9 @@ function makePlayer(src, label, sub) {
 
 /* Only one clip plays at a time, anywhere on the page. */
 document.addEventListener('play', e => {
-  document.querySelectorAll('audio').forEach(a => { if (a !== e.target) a.pause(); });
+  document.querySelectorAll('audio, video').forEach(a => { if (a !== e.target) a.pause(); });
 }, true);
-const pauseAll = root => root.querySelectorAll('audio').forEach(a => a.pause());
+const pauseAll = root => root.querySelectorAll('audio, video').forEach(a => a.pause());
 
 /* Examples: one tab per dataset; all panels are built once and toggled. */
 (function buildExamples() {
@@ -639,7 +639,7 @@ function newRound(prevId, rng = Math.random) {
   const byKey = Object.fromEntries(MODELS.map(m => [m.key, m]));
   let round = null, n = 0, correct = 0, answered = false;
 
-  function start() {
+  function start(focusClips) {
     pauseAll($('quiz'));
     round = newRound(round && round.dataset.id);
     n += 1;
@@ -660,6 +660,7 @@ function newRound(prevId, rng = Math.random) {
       b.addEventListener('click', () => answer(i));
       answers.appendChild(b);
     });
+    if (focusClips) clips.querySelector('.play').focus();
   }
 
   function answer(i) {
@@ -684,9 +685,10 @@ function newRound(prevId, rng = Math.random) {
       : `<b class="no">Not quite.</b> Clip ${realIdx + 1} is the real recording.`;
     $('quiz-score').textContent = `${correct} / ${n} correct`;
     $('quiz-next').disabled = false;
+    $('quiz-next').focus();
   }
 
-  $('quiz-next').addEventListener('click', start);
+  $('quiz-next').addEventListener('click', () => start(true));
   start();
 })();
 
