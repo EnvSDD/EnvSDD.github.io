@@ -702,6 +702,11 @@ document.querySelectorAll('.seg').forEach(seg => {
   }));
 });
 
+/* Number visible sections 01, 02, … so hiding #video leaves no gap. */
+document.querySelectorAll('section:not([hidden]) .sec-num').forEach((e, i) => {
+  e.textContent = String(i + 1).padStart(2, '0');
+});
+
 /* Video slot: media is only requested once the section is un-hidden. */
 (function activateVideo() {
   const sec = document.getElementById('video');
