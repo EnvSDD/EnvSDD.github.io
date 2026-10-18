@@ -13,6 +13,7 @@ Source of <https://envsdd.github.io/>, the project page for
 - `index.html` — the whole page; CSS and JS are inline, no build step.
 - `static/audios/<dataset>/<key>.mp3` — demo clips (`real`, `tta-*`, `ata-*`).
 - `static/images/` — favicon, method figure, social preview card (`social.png`, 1200×630).
+- `static/video/` — 50 s promo video (`envsdd.mp4`, web-compressed) and its poster frame.
 
 ## Updating
 

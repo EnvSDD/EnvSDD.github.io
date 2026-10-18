@@ -229,6 +229,7 @@ footer p{margin:0}
       <li><a href="#examples">Examples</a></li>
       <li><a href="#benchmark">Benchmark</a></li>
       <li><a href="#challenges">Challenges</a></li>
+      <li><a href="#video">Video</a></li>
       <li><a href="#bibtex">BibTeX</a></li>
     </ul>
   </div>
@@ -260,7 +261,7 @@ footer p{margin:0}
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6V2zm8 1.5V8h4.5L14 3.5zM8 12h8v1.5H8V12zm0 3.5h8V17H8v-1.5z"/></svg>Paper</a>
       <a class="btn" href="https://github.com/apple-yinhan/EnvSDD">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>Code &amp; Dataset</a>
-      <a class="btn" id="hero-video" href="#video" hidden>
+      <a class="btn" id="hero-video" href="#video">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Video</a>
       <a class="btn ghost" href="#listen">Take the listening test</a>
       <a class="btn ghost" href="#bibtex">BibTeX</a>
@@ -404,10 +405,9 @@ footer p{margin:0}
   </div>
 </section>
 
-<!-- Video: add static/video/envsdd.mp4 + poster.jpg, then remove "hidden" here and on #hero-video -->
-<section id="video" hidden>
+<section id="video" class="soft">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">05</span><h2>EnvSDD in 45 seconds</h2></div>
+    <div class="sec-head"><span class="sec-num">05</span><h2>EnvSDD in 50 seconds</h2></div>
     <div class="film">
       <video controls preload="none" playsinline data-poster="static/video/poster.jpg">
         <source data-src="static/video/envsdd.mp4" type="video/mp4">
@@ -416,7 +416,7 @@ footer p{margin:0}
   </div>
 </section>
 
-<section id="bibtex" class="soft">
+<section id="bibtex">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">06</span><h2>BibTeX</h2></div>
     <p class="lede">If you use EnvSDD, please cite the benchmark paper. If you use the challenge data or compare against challenge systems, please also cite the corresponding overview paper.</p>
