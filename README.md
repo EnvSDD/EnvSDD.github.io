@@ -4,7 +4,8 @@ Source of <https://envsdd.github.io/>, the project page for
 **EnvSDD: Benchmarking Environmental Sound Deepfake Detection** (Interspeech 2025).
 
 - Paper: <https://arxiv.org/abs/2505.19203>
-- Code & dataset: <https://github.com/apple-yinhan/EnvSDD>
+- Code: <https://github.com/apple-yinhan/EnvSDD>
+- Dataset (Hugging Face): <https://huggingface.co/datasets/EnvSDD/EnvSDD>
 - ESDD 1 challenge overview (ICASSP 2026): <https://arxiv.org/abs/2603.04865>
 - ESDD 2 challenge overview (ICME 2026): <https://arxiv.org/abs/2606.10791>
 
